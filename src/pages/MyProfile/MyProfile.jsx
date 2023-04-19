@@ -94,14 +94,6 @@ function MyProfile() {
               <p>
                 Vous n&#39;avez pas encore d&#39;annonce.
               </p>
-
-              <br />
-
-              <p>
-                Vous pouvez en ajouter en cliquant sur le bouton
-                <span>Ajouter une annonce</span>
-                ci-dessous
-              </p>
             </div>
           )}
 
