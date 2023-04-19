@@ -99,8 +99,8 @@ function MyProfile() {
 
               <p>
                 Vous pouvez en ajouter en cliquant sur le bouton
-                <span><MdLibraryAdd size="2rem" /></span>
-                en haut à droite
+                <span>Ajouter une annonce</span>
+                ci-dessous
               </p>
             </div>
           )}
