@@ -1,7 +1,9 @@
 import { FiPlus } from 'react-icons/fi';
+import { MdLibraryAdd } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { getMyAds } from '../../api/ads';
 
 import UpdateMyProfile from './UpdateMyProfile/UpdateMyProfile';
 import PetProfile from './PetProfile/PetProfile';
@@ -11,16 +13,21 @@ import { logout } from '../../store/reducers/user';
 import { resetResearchPetsitters } from '../../store/reducers/petsitters';
 import { resetFieldsUpdateAccount } from '../../store/reducers/updateAccount';
 import Loader from '../../components/Loader/Loader';
+import CounterResults from '../../components/CounterResults/CounterResults';
+import MyAdCard from '../MyAds/MyAdCard/MyAdCard';
+import '../MyAds/MyAdCard/MyAdCard.scss';
 
 function MyProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const connectedUser = useSelector((state) => state.user.connectedUser);
+  const myAdsData = useSelector((state) => state.user.ads);
 
   useEffect(() => {
     dispatch(fetchConnectedUserInfos());
     setIsLoading(false);
+    dispatch(getMyAds());
   }, []);
 
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -60,6 +67,44 @@ function MyProfile() {
 
       <div className="profile__ads">
         <h1>Mes annonces</h1>
+
+        {myAdsData[0]
+          ? (
+            <>
+              <CounterResults
+                arrayResult={myAdsData}
+                searchType="annonce"
+              />
+
+              {myAdsData.map((ad) => (
+                <MyAdCard
+                  key={ad.id}
+                  adCardTitle={ad.title}
+                  adCardContent={ad.content}
+                  adCardCity={ad.city}
+                  adCardPostalCode={ad.postal_code}
+                  adCardCreatedAt={ad.created_at}
+                  adCardId={ad.id}
+                />
+              ))}
+            </>
+          )
+          : (
+            <div className="myAds__notFound">
+              <p>
+                Vous n&#39;avez pas encore d&#39;annonce.
+              </p>
+
+              <br />
+
+              <p>
+                Vous pouvez en ajouter en cliquant sur le bouton
+                <span><MdLibraryAdd size="2rem" /></span>
+                en haut à droite
+              </p>
+            </div>
+          )}
+
         <div className="profile__ads__btns">
           <Link to="/creer-une-annonce">
             <button type="button" className="profile__ads__btn--add">

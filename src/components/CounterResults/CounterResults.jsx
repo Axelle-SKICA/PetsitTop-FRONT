@@ -6,8 +6,8 @@ function CounterResults({ arrayResult, searchType }) {
   return (
     <h3 className="counterResults">
       {count > 1
-        ? `${count} ${searchType}s diponibles`
-        : `${count} ${searchType} diponible` }
+        ? `${count} ${searchType}s disponibles`
+        : `${count} ${searchType} disponible` }
     </h3>
   );
 }
